@@ -80,16 +80,22 @@ fn main() {
         let tags_row = lines.len().saturating_sub(1);
         let tags_indicator = "TAGS";
 
-        let filename = filepath
+        let filename = &filepath
             .file_name()
             .unwrap()
             .to_str()
             .map(|s| s.to_string())
+            .unwrap();
+
+        let filestem = &filepath
+            .file_stem()
             .unwrap()
-        ; // TODO how come filepath isn't move here? (i.e. i'm still able to use filepath after). Is there a specific indicator of it?
+            .to_str()
+            .map(|s| s.to_string())
+            .unwrap();
 
         // Write tags.
-        let new_tag = filename.replace('.', "/");
+        let new_tag = filestem.replace('.', "/");
         let new_tags_line =
             String::from(tags_indicator) + ": "
             + "#flashcard "
