@@ -100,7 +100,12 @@ fn main() {
             String::from(tags_indicator) + ": "
             + "#flashcard "
             + "#" + &new_tag;
-        lines[tags_row] = new_tags_line;
+        if lines[tags_row].len() > 5 && &lines[tags_row][0..5] == "TAGS:" {
+            lines[tags_row] = new_tags_line;
+        }
+        else {
+            lines.push(new_tags_line);
+        }
 
         // Write to file in temp dir.
         let new_filepath = PathBuf::from(String::from(TEMP_DIR) + &filename);
